@@ -190,3 +190,4 @@ document.addEventListener("keydown", function (event) {
 
 move(snake1);
 move(snake2);
+//waudbiuawhdyabwudhauywdhuwa
