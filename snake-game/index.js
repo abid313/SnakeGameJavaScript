@@ -37,7 +37,11 @@ let snake = {
     direction: initDirection(),
     score: 0,
 }
-let apple = {
+let apple1 = {
+    color: "red",
+    position: initPosition(),
+}
+let apple2 = {
     color: "red",
     position: initPosition(),
 }
@@ -74,7 +78,8 @@ function draw() {
         for (let i = 1; i < snake.body.length; i++) {
             drawCell(ctx, snake.body[i].x, snake.body[i].y, snake.color);
         }
-        drawCell(ctx, apple.position.x, apple.position.y, apple.color);
+        drawCell(ctx, apple1.position.x, apple1.position.y, apple1.color);
+        drawCell(ctx, apple2.position.x, apple2.position.y, apple2.color);
 
         drawScore(snake);
     }, REDRAW_INTERVAL);
@@ -95,9 +100,15 @@ function teleport(snake) {
     }
 }
 
-function eat(snake, apple) {
-    if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
-        apple.position = initPosition();
+function eat(snake, apple1, apple2) {
+    if (snake.head.x == apple1.position.x && snake.head.y == apple1.position.y) {
+        apple1.position = initPosition();
+        snake.score++;
+        //this
+        snake.body.push({x: snake.head.x, y: snake.head.y});
+    }
+    if (snake.head.x == apple2.position.x && snake.head.y == apple2.position.y) {
+        apple2.position = initPosition();
         snake.score++;
         //this
         snake.body.push({x: snake.head.x, y: snake.head.y});
@@ -107,25 +118,25 @@ function eat(snake, apple) {
 function moveLeft(snake) {
     snake.head.x--;
     teleport(snake);
-    eat(snake, apple);
+    eat(snake, apple1, apple2);
 }
 
 function moveRight(snake) {
     snake.head.x++;
     teleport(snake);
-    eat(snake, apple);
+    eat(snake, apple1, apple2);
 }
 
 function moveDown(snake) {
     snake.head.y++;
     teleport(snake);
-    eat(snake, apple);
+    eat(snake, apple1, apple2);
 }
 
 function moveUp(snake) {
     snake.head.y--;
     teleport(snake);
-    eat(snake, apple);
+    eat(snake, apple1, apple2);
 }
 
 function move(snake) {
