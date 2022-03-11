@@ -11,12 +11,12 @@ const DIRECTION = {
 }
 let MOVE_INTERVAL = 150;
 
-const LEVELS = [
-    {level: 1, kecepatan: 150, },
-    {level: 2, kecepatan: 120, },
-    {level: 3, kecepatan: 90, },
-    {level: 4, kecepatan: 60, },
-    {level: 5, kecepatan: 40, },
+const List_Level = [
+    {level: 1, kecepatan: MOVE_INTERVAL, },
+    {level: 2, kecepatan: MOVE_INTERVAL-30, },
+    {level: 3, kecepatan: MOVE_INTERVAL-60, },
+    {level: 4, kecepatan: MOVE_INTERVAL-90, },
+    {level: 5, kecepatan: MOVE_INTERVAL-110, },
 ];
 
 function initPosition() {
@@ -62,6 +62,7 @@ function drawCell(ctx, x, y, color) {
 
 function drawScore(snake) {
     let scoreCanvas;
+    
     if (snake.color == snake.color) {
         scoreCanvas = document.getElementById("score1Board");
     } else {
@@ -78,6 +79,7 @@ function drawScore(snake) {
 function drawLevel(snakeScore){
     let levelCanvas = document.getElementById("levelBoard");
     let ctx = levelCanvas.getContext("2d");
+
     if(snakeScore == 0){
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         ctx.fillStyle = snake.color;
@@ -90,9 +92,10 @@ function drawLevel(snakeScore){
         ctx.font = "16px Arial";
         ctx.fillText("Level : "+snake.level, 10, levelCanvas.scrollHeight / 2);
     }
-    for(var i = 0; i<LEVELS.length; i++){
-        if(snake.level == LEVELS[i].level){
-            MOVE_INTERVAL = LEVELS[i].kecepatan;
+    
+    for(var i = 0; i<List_Level.length; i++){
+        if(snake.level == List_Level[i].level){
+            MOVE_INTERVAL = List_Level[i].kecepatan;
         }
     }
 }
