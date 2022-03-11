@@ -11,6 +11,14 @@ const DIRECTION = {
 }
 let MOVE_INTERVAL = 150;
 
+const LEVELS = [
+    {level: 1, kecepatan: 150, },
+    {level: 2, kecepatan: 120, },
+    {level: 3, kecepatan: 90, },
+    {level: 4, kecepatan: 60, },
+    {level: 5, kecepatan: 40, },
+];
+
 function initPosition() {
     return {
         x: Math.floor(Math.random() * WIDTH),
@@ -36,13 +44,14 @@ let snake = {
     ...initHeadAndBody(),
     direction: initDirection(),
     score: 0,
+    level: 1
 }
 let apple1 = {
     color: "red",
     position: initPosition(),
 }
 let apple2 = {
-    color: "red",
+    color: "yellow",
     position: initPosition(),
 }
 
@@ -61,12 +70,35 @@ function drawScore(snake) {
     let scoreCtx = scoreCanvas.getContext("2d");
 
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    scoreCtx.font = "30px Arial";
+    scoreCtx.font = "20px Arial";
     scoreCtx.fillStyle = snake.color
-    scoreCtx.fillText(snake.score, 10, scoreCanvas.scrollHeight / 2);
+    scoreCtx.fillText("Score : "+snake.score, 10, scoreCanvas.scrollHeight / 2);
+}
+
+function drawLevel(snakeScore){
+    let levelCanvas = document.getElementById("levelBoard");
+    let ctx = levelCanvas.getContext("2d");
+    if(snakeScore == 0){
+        ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+        ctx.fillStyle = snake.color;
+        ctx.font = "18px Arial";
+        ctx.fillText("Level : "+snake.level, 10, levelCanvas.scrollHeight / 2);
+    }else if((snakeScore % 5) === 0){
+        snake.level += 1;
+        ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+        ctx.fillStyle = snake.color;
+        ctx.font = "16px Arial";
+        ctx.fillText("Level : "+snake.level, 10, levelCanvas.scrollHeight / 2);
+    }
+    for(var i = 0; i<LEVELS.length; i++){
+        if(snake.level == LEVELS[i].level){
+            MOVE_INTERVAL = LEVELS[i].kecepatan;
+        }
+    }
 }
 
 function draw() {
+    drawLevel(snake.score)
     setInterval(function() {
         let snakeCanvas = document.getElementById("snakeBoard");
         let ctx = snakeCanvas.getContext("2d");
@@ -100,43 +132,41 @@ function teleport(snake) {
     }
 }
 
-function eat(snake, apple1, apple2) {
-    if (snake.head.x == apple1.position.x && snake.head.y == apple1.position.y) {
-        apple1.position = initPosition();
+function eat(snake, apple) {
+    if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
+        apple.position = initPosition();
         snake.score++;
-        //this
         snake.body.push({x: snake.head.x, y: snake.head.y});
-    }
-    if (snake.head.x == apple2.position.x && snake.head.y == apple2.position.y) {
-        apple2.position = initPosition();
-        snake.score++;
-        //this
-        snake.body.push({x: snake.head.x, y: snake.head.y});
+        drawLevel(snake.score);
     }
 }
 
 function moveLeft(snake) {
     snake.head.x--;
     teleport(snake);
-    eat(snake, apple1, apple2);
+    eat(snake, apple1);
+    eat(snake, apple2)
 }
 
 function moveRight(snake) {
     snake.head.x++;
     teleport(snake);
-    eat(snake, apple1, apple2);
+    eat(snake, apple1);
+    eat(snake, apple2)
 }
 
 function moveDown(snake) {
     snake.head.y++;
     teleport(snake);
-    eat(snake, apple1, apple2);
+    eat(snake, apple1);
+    eat(snake, apple2)
 }
 
 function moveUp(snake) {
     snake.head.y--;
     teleport(snake);
-    eat(snake, apple1, apple2);
+    eat(snake, apple1);
+    eat(snake, apple2)
 }
 
 function move(snake) {
