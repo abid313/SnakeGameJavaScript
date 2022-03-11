@@ -31,19 +31,17 @@ function initDirection() {
     return Math.floor(Math.random() * 4);
 }
 
-let snake1 = {
+let snake = {
     color: "purple",
     ...initHeadAndBody(),
     direction: initDirection(),
     score: 0,
 }
-let snake2 = {
-    color: "blue",
-    ...initHeadAndBody(),
-    direction: initDirection(),
-    score: 0,
+let apple1 = {
+    color: "red",
+    position: initPosition(),
 }
-let apple = {
+let apple2 = {
     color: "red",
     position: initPosition(),
 }
@@ -55,7 +53,7 @@ function drawCell(ctx, x, y, color) {
 
 function drawScore(snake) {
     let scoreCanvas;
-    if (snake.color == snake1.color) {
+    if (snake.color == snake.color) {
         scoreCanvas = document.getElementById("score1Board");
     } else {
         scoreCanvas = document.getElementById("score2Board");
@@ -75,19 +73,15 @@ function draw() {
 
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
-        drawCell(ctx, snake1.head.x, snake1.head.y, snake1.color);
+        drawCell(ctx, snake.head.x, snake.head.y, snake.color);
         //loop
-        for (let i = 1; i < snake1.body.length; i++) {
-            drawCell(ctx, snake1.body[i].x, snake1.body[i].y, snake1.color);
+        for (let i = 1; i < snake.body.length; i++) {
+            drawCell(ctx, snake.body[i].x, snake.body[i].y, snake.color);
         }
-        drawCell(ctx, snake2.head.x, snake2.head.y, snake2.color);
-        for (let i = 1; i < snake2.body.length; i++) {
-            drawCell(ctx, snake2.body[i].x, snake2.body[i].y, snake2.color);
-        }
-        drawCell(ctx, apple.position.x, apple.position.y, apple.color);
+        drawCell(ctx, apple1.position.x, apple1.position.y, apple1.color);
+        drawCell(ctx, apple2.position.x, apple2.position.y, apple2.color);
 
-        drawScore(snake1);
-        drawScore(snake2);
+        drawScore(snake);
     }, REDRAW_INTERVAL);
 }
 
@@ -106,9 +100,15 @@ function teleport(snake) {
     }
 }
 
-function eat(snake, apple) {
-    if (snake.head.x == apple.position.x && snake.head.y == apple.position.y) {
-        apple.position = initPosition();
+function eat(snake, apple1, apple2) {
+    if (snake.head.x == apple1.position.x && snake.head.y == apple1.position.y) {
+        apple1.position = initPosition();
+        snake.score++;
+        //this
+        snake.body.push({x: snake.head.x, y: snake.head.y});
+    }
+    if (snake.head.x == apple2.position.x && snake.head.y == apple2.position.y) {
+        apple2.position = initPosition();
         snake.score++;
         //this
         snake.body.push({x: snake.head.x, y: snake.head.y});
@@ -118,25 +118,25 @@ function eat(snake, apple) {
 function moveLeft(snake) {
     snake.head.x--;
     teleport(snake);
-    eat(snake, apple);
+    eat(snake, apple1, apple2);
 }
 
 function moveRight(snake) {
     snake.head.x++;
     teleport(snake);
-    eat(snake, apple);
+    eat(snake, apple1, apple2);
 }
 
 function moveDown(snake) {
     snake.head.y++;
     teleport(snake);
-    eat(snake, apple);
+    eat(snake, apple1, apple2);
 }
 
 function moveUp(snake) {
     snake.head.y--;
     teleport(snake);
-    eat(snake, apple);
+    eat(snake, apple1, apple2);
 }
 
 function move(snake) {
@@ -168,26 +168,14 @@ function moveBody(snake) {
 
 document.addEventListener("keydown", function (event) {
     if (event.key === "ArrowLeft") {
-        snake1.direction = DIRECTION.LEFT;
+        snake.direction = DIRECTION.LEFT;
     } else if (event.key === "ArrowRight") {
-        snake1.direction = DIRECTION.RIGHT;
+        snake.direction = DIRECTION.RIGHT;
     } else if (event.key === "ArrowUp") {
-        snake1.direction = DIRECTION.UP;
+        snake.direction = DIRECTION.UP;
     } else if (event.key === "ArrowDown") {
-        snake1.direction = DIRECTION.DOWN;
-    }
-
-    if (event.key === "a") {
-        snake2.direction = DIRECTION.LEFT;
-    } else if (event.key === "d") {
-        snake2.direction = DIRECTION.RIGHT;
-    } else if (event.key === "w") {
-        snake2.direction = DIRECTION.UP;
-    } else if (event.key === "s") {
-        snake2.direction = DIRECTION.DOWN;
+        snake.direction = DIRECTION.DOWN;
     }
 })
 
-move(snake1);
-move(snake2);
-//waudbiuawhdyabwudhauywdhuwa
+move(snake);
