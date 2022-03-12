@@ -51,6 +51,16 @@ let apple2 = {
     position: initPosition(),
 }
 
+
+// let apples = {
+//   color: "red",
+//   position: initPosition(),
+// };
+// let apple2 = {
+//   color: "red",
+//   position: initPosition(),
+// };
+
 let lifes = [
     {
     color: "red",
