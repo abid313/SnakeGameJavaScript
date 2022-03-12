@@ -36,15 +36,14 @@ function loadImages(){
     lifes.src = 'assets/IconLife.png';
 }
 
-
 let snake = {
-    color: "purple",
+    color: "green",
     ...initHeadAndBody(),
     direction: initDirection(),
     score: 0,
 }
 let apple1 = {
-    color: "red",
+    color: "yellow",
     position: initPosition(),
 }
 let apple2 = {
@@ -52,7 +51,7 @@ let apple2 = {
     position: initPosition(),
 }
 let lifes = {
-    color: "blue",
+    color: "red",
     position: initPosition(),
     lifes: 3,
 }
@@ -107,7 +106,6 @@ function draw() {
         drawCell(ctx, lifes.position.x, lifes.position.y, lifes.color);
 
         drawScore(snake);
-        drawlifes(snake);
     }, REDRAW_INTERVAL);
 }
 
@@ -142,7 +140,6 @@ function eat(snake, apple1, apple2, lifes) {
     if (snake.head.x == lifes.position.x && snake.head.y == lifes.position.y) {
         lifes.position = initPosition();
         lifes.lifes++;
-            
         //this
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
