@@ -9,7 +9,7 @@ const DIRECTION = {
     UP: 2,
     DOWN: 3,
 }
-const MOVE_INTERVAL = 150;
+let MOVE_INTERVAL = 150;
 
 function initPosition() {
     return {
@@ -45,6 +45,7 @@ let apple2 = {
     color: "yellow",
     position: initPosition(),
 }
+
 let lifes = [
     {
     color: "red",
@@ -185,6 +186,44 @@ function moveUp(snake) {
     eat(snake, apple1, apple2, lifes);
 }
 
+function EatSelf(snake){
+    let isEatSelf = false;
+    
+    for(var i = 0; i < snake.length; i++){
+        //console.log(i);
+        for(var o = 0; o < snake.length; o++){
+            for(var p = 1; p < snake[o].body.length; p++){
+                // console.log(snake[i].head.x);
+                // console.log(snake[o].body[p].x);
+
+                // console.log(snake[i].head.y);
+                // console.log(snake[o].body[p].y);
+                if (snake[i].head.x == snake[o].body[p].x && snake[i].head.y == snake[o].body[p].y) {
+                    isEatSelf = true;
+                }
+            }
+        }
+    }
+    if(isEatSelf == true){
+        lifes[0].lifes -= 1;
+        snake = deadSnake(snake);
+        console.log("sampai");
+    } else if(snake.score < 1){
+        alert("Game over");
+        snake = snake.direction;
+    }
+    return isEatSelf;
+}
+
+function deadSnake(snake){
+    return{
+        color: snake.color,
+        ...initHeadAndBody,
+        direction: initDirection(),
+        score: snake.score,
+    }
+}
+
 function move(snake) {
     switch (snake.direction) {
         case DIRECTION.LEFT:
@@ -201,9 +240,14 @@ function move(snake) {
             break;
     }
     moveBody(snake);
-    setTimeout(function() {
+    if(!EatSelf([snake])){
+        setTimeout(function() {
+            move(snake);
+        }, MOVE_INTERVAL);
+    }else{
         move(snake);
-    }, MOVE_INTERVAL);
+    }
+    
 }
 
 //this
