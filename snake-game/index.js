@@ -11,6 +11,14 @@ const DIRECTION = {
 };
 let MOVE_INTERVAL = 150;
 
+const List_Level = [
+    {level: 1, kecepatan: MOVE_INTERVAL, },
+    {level: 2, kecepatan: MOVE_INTERVAL-30, },
+    {level: 3, kecepatan: MOVE_INTERVAL-60, },
+    {level: 4, kecepatan: MOVE_INTERVAL-90, },
+    {level: 5, kecepatan: MOVE_INTERVAL-110, },
+];
+
 function initPosition() {
   return {
     x: Math.floor(Math.random() * WIDTH),
@@ -39,6 +47,13 @@ function initSnake(color){
         score: 0,
     }
 }
+// let snake = {
+//     color: "purple",
+//     ...initHeadAndBody(),
+//     direction: initDirection(),
+//     score: 0,
+//     level: 1
+// }
 
 let snake = initSnake("green");
 
@@ -88,24 +103,50 @@ function drawlifes(lifes){
 }
 
 function drawScore(snake) {
-  let scoreCanvas;
-  if (snake.color == snake.color) {
-    scoreCanvas = document.getElementById("score1Board");
-  } else {
-    scoreCanvas = document.getElementById("score2Board");
-  }
-  let scoreCtx = scoreCanvas.getContext("2d");
+    let scoreCanvas;
+    
+    if (snake.color == snake.color) {
+        scoreCanvas = document.getElementById("score1Board");
+    } else {
+        scoreCanvas = document.getElementById("score2Board");
+    }
+    let scoreCtx = scoreCanvas.getContext("2d");
 
-  scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-  scoreCtx.font = "30px Arial";
-  scoreCtx.fillStyle = snake.color;
-  scoreCtx.fillText(snake.score, 10, scoreCanvas.scrollHeight / 2);
+    scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    scoreCtx.font = "20px Arial";
+    scoreCtx.fillStyle = snake.color
+    scoreCtx.fillText("Score : "+snake.score, 10, scoreCanvas.scrollHeight / 2);
+}
+
+function drawLevel(snakeScore){
+    let levelCanvas = document.getElementById("levelBoard");
+    let ctx = levelCanvas.getContext("2d");
+
+    if(snakeScore == 0){
+        ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+        ctx.fillStyle = snake.color;
+        ctx.font = "18px Arial";
+        ctx.fillText("Level : "+snake.level, 10, levelCanvas.scrollHeight / 2);
+    }else if((snakeScore % 5) === 0){
+        snake.level += 1;
+        ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+        ctx.fillStyle = snake.color;
+        ctx.font = "16px Arial";
+        ctx.fillText("Level : "+snake.level, 10, levelCanvas.scrollHeight / 2);
+    }
+    
+    for(var i = 0; i<List_Level.length; i++){
+        if(snake.level == List_Level[i].level){
+            MOVE_INTERVAL = List_Level[i].kecepatan;
+        }
+    }
 }
 
 function draw() {
-  setInterval(function () {
-    let snakeCanvas = document.getElementById("snakeBoard");
-    let ctx = snakeCanvas.getContext("2d");
+    drawLevel(snake.score)
+    setInterval(function() {
+        let snakeCanvas = document.getElementById("snakeBoard");
+        let ctx = snakeCanvas.getContext("2d");
 
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
@@ -158,14 +199,8 @@ function eat(snake, apple1, apple2, lifes) {
     if (snake.head.x == apple1.position.x && snake.head.y == apple1.position.y) {
         apple1.position = initPosition();
         snake.score++;
-        //this
         snake.body.push({x: snake.head.x, y: snake.head.y});
-    }
-    if (snake.head.x == apple2.position.x && snake.head.y == apple2.position.y) {
-        apple2.position = initPosition();
-        snake.score++;
-        //this
-        snake.body.push({x: snake.head.x, y: snake.head.y});
+        drawLevel(snake.score);
     }
     for (let i = 0; i < lifes.length; i++) {
         let life = lifes[i];
