@@ -36,6 +36,7 @@ function loadImages(){
     lifes.src = 'assets/IconLife.png';
 }
 
+
 let snake = {
     color: "green",
     ...initHeadAndBody(),
@@ -61,7 +62,7 @@ function drawCell(ctx, x, y, color) {
     ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 }
 
-function drawlifes(snake){
+function drawlifes(lifes){
     let lifesCanvas;
     if (lifes.color == lifes.color) {
         lifesCanvas = document.getElementById("score3Board");
@@ -101,11 +102,23 @@ function draw() {
         for (let i = 1; i < snake.body.length; i++) {
             drawCell(ctx, snake.body[i].x, snake.body[i].y, snake.color);
         }
+
+        // loop untuk menampilkan life jika dibilangan prima
+        let pembagi = 0;
+        for(let i = 1; i <= snake.score; i++){
+            if(snake.score % i == 0){
+                pembagi++;
+            }
+        }
+        if (pembagi == 2){
+            drawCell(ctx, lifes.position.x, lifes.position.y, lifes.color);
+        }
+
         drawCell(ctx, apple1.position.x, apple1.position.y, apple1.color);
         drawCell(ctx, apple2.position.x, apple2.position.y, apple2.color);
-        drawCell(ctx, lifes.position.x, lifes.position.y, lifes.color);
-
+        
         drawScore(snake);
+        drawlifes(lifes);
     }, REDRAW_INTERVAL);
 }
 
@@ -140,8 +153,7 @@ function eat(snake, apple1, apple2, lifes) {
     if (snake.head.x == lifes.position.x && snake.head.y == lifes.position.y) {
         lifes.position = initPosition();
         lifes.lifes++;
-        //this
-        snake.body.push({x: snake.head.x, y: snake.head.y});
+        snake.score++;
     }
 }
 
