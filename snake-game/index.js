@@ -31,12 +31,17 @@ function initDirection() {
     return Math.floor(Math.random() * 4);
 }
 
-let snake = {
-    color: "green",
-    ...initHeadAndBody(),
-    direction: initDirection(),
-    score: 0,
+function initSnake(color){
+    return {
+        color: color,
+        ...initHeadAndBody(),
+        direction: initDirection(),
+        score: 0,
+    }
 }
+
+let snake = initSnake("green");
+
 let apple1 = {
     color: "yellow",
     position: initPosition(),
@@ -206,22 +211,16 @@ function EatSelf(snake){
     }
     if(isEatSelf == true){
         lifes[0].lifes -= 1;
-        snake = deadSnake(snake);
-        console.log("sampai");
-    } else if(snake.score < 1){
+        return isEatSelf = false;
+    } else if(lifes[0].lifes == 0){
         alert("Game over");
-        snake = snake.direction;
+        // ctx.fillText('Game over', 10, lifesCanvas.scrollHeight / 2);
     }
+    // else if (lifes[0].lifes == 0 && EatSelf(snake, initHeadAndBody)) {
+    //     clearInterval(MOVE_INTERVAL);
+    // }
+    // snake.unshift(initHeadAndBody);
     return isEatSelf;
-}
-
-function deadSnake(snake){
-    return{
-        color: snake.color,
-        ...initHeadAndBody,
-        direction: initDirection(),
-        score: snake.score,
-    }
 }
 
 function move(snake) {
@@ -247,10 +246,8 @@ function move(snake) {
     }else{
         move(snake);
     }
-    
 }
 
-//this
 function moveBody(snake) {
     snake.body.unshift({ x: snake.head.x, y: snake.head.y });
     snake.body.pop();
