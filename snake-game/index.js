@@ -31,6 +31,12 @@ function initDirection() {
     return Math.floor(Math.random() * 4);
 }
 
+function loadImages(){
+    var lifes = new Image();
+    lifes.src = 'assets/IconLife.png';
+}
+
+
 let snake = {
     color: "purple",
     ...initHeadAndBody(),
