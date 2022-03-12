@@ -31,12 +31,6 @@ function initDirection() {
     return Math.floor(Math.random() * 4);
 }
 
-function loadImages(){
-    var lifes = new Image();
-    lifes.src = 'assets/IconLife.png';
-}
-
-
 let snake = {
     color: "green",
     ...initHeadAndBody(),
@@ -51,11 +45,13 @@ let apple2 = {
     color: "yellow",
     position: initPosition(),
 }
-let lifes = {
+let lifes = [
+    {
     color: "red",
     position: initPosition(),
     lifes: 3,
-}
+    },
+];
 
 function drawCell(ctx, x, y, color) {
     ctx.fillStyle = color;
@@ -72,7 +68,7 @@ function drawlifes(lifes){
     lifesCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     lifesCtx.font = "25px Arial";
     lifesCtx.fillStyle = lifes.color
-    lifesCtx.fillText("Life: \n" + lifes.lifes, 10, lifesCanvas.scrollHeight / 2);
+    lifesCtx.fillText("Life: \n" + lifes[0].lifes, 10, lifesCanvas.scrollHeight / 2);
 }
 
 function drawScore(snake) {
@@ -111,7 +107,12 @@ function draw() {
             }
         }
         if (pembagi == 2){
-            drawCell(ctx, lifes.position.x, lifes.position.y, lifes.color);
+            for (let i = 0; i < lifes.length; i++) {
+                let life = lifes[i];
+          
+                var img = document.getElementById("lifes");
+                ctx.drawImage(img, life.position.x * CELL_SIZE, life.position.y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+              }
         }
 
         drawCell(ctx, apple1.position.x, apple1.position.y, apple1.color);
@@ -150,10 +151,13 @@ function eat(snake, apple1, apple2, lifes) {
         //this
         snake.body.push({x: snake.head.x, y: snake.head.y});
     }
-    if (snake.head.x == lifes.position.x && snake.head.y == lifes.position.y) {
-        lifes.position = initPosition();
-        lifes.lifes++;
-        snake.score++;
+    for (let i = 0; i < lifes.length; i++) {
+        let life = lifes[i];
+        if (snake.head.x == life.position.x && snake.head.y == life.position.y) {
+            life.position = initPosition();
+            life.lifes++;
+            snake.score++;
+        }
     }
 }
 
