@@ -105,7 +105,7 @@ function draw() {
 
         // loop untuk menampilkan life jika dibilangan prima
         let pembagi = 0;
-        for(let i = 1; i <= snake.score; i++){
+        for(let i = 0; i <= snake.score; i++){
             if(snake.score % i == 0){
                 pembagi++;
             }
