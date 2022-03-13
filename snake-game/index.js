@@ -73,7 +73,7 @@ function drawScore(snake) {
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     scoreCtx.font = "20px Arial";
     scoreCtx.fillStyle = snake.color
-    scoreCtx.fillText("Score : "+snake.score, 10, scoreCanvas.scrollHeight / 2);
+    scoreCtx.fillText("Score: "+snake.score, 10, scoreCanvas.scrollHeight / 2);
 }
 
 function drawLevel(snakeScore){
@@ -84,13 +84,13 @@ function drawLevel(snakeScore){
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         ctx.fillStyle = snake.color;
         ctx.font = "18px Arial";
-        ctx.fillText("Level : "+snake.level, 10, levelCanvas.scrollHeight / 2);
+        ctx.fillText("Level: "+snake.level, 10, levelCanvas.scrollHeight / 2);
     }else if((snakeScore % 5) === 0){
         snake.level += 1;
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         ctx.fillStyle = snake.color;
         ctx.font = "16px Arial";
-        ctx.fillText("Level : "+snake.level, 10, levelCanvas.scrollHeight / 2);
+        ctx.fillText("Level: "+snake.level, 10, levelCanvas.scrollHeight / 2);
     }
     
     for(var i = 0; i<List_Level.length; i++){
@@ -108,6 +108,57 @@ function draw() {
 
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
+        //wall
+        if(snake.score >= 5 && snake.score < 10){
+			ctx.beginPath();
+			ctx.moveTo(50, 150);
+			ctx.lineTo(350, 150);
+			ctx.lineWidth = 20;
+			ctx.stroke();
+		} else if(snake.score >= 10 && snake.score < 15){
+			ctx.beginPath();
+			ctx.moveTo(50, 150);
+			ctx.lineTo(350, 150);
+			ctx.lineWidth = 20;
+			ctx.stroke();
+			
+			ctx.beginPath();
+			ctx.moveTo(50, 250);
+			ctx.lineTo(350, 250);
+			ctx.lineWidth = 20;
+			ctx.stroke();
+		} else if(snake.score >= 15 && snake.score < 20){
+			ctx.beginPath();
+			ctx.moveTo(50, 150);
+			ctx.lineTo(350, 150);
+			ctx.lineWidth = 20;
+			ctx.stroke();
+			
+			ctx.beginPath();
+			ctx.moveTo(50, 250);
+			ctx.lineTo(350, 250);
+			ctx.lineWidth = 20;
+			ctx.stroke();
+			
+			ctx.beginPath();
+			ctx.moveTo(50, 350);
+			ctx.lineTo(350, 350);
+			ctx.lineWidth = 20;
+			ctx.stroke();
+		} else if(snake.score >= 20){
+			ctx.beginPath();
+			ctx.moveTo(100, 50);
+			ctx.lineTo(100, 350);
+			ctx.lineWidth = 20;
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.moveTo(300, 50);
+			ctx.lineTo(300, 350);
+			ctx.lineWidth = 20;
+			ctx.stroke();
+		}
+
         drawCell(ctx, snake.head.x, snake.head.y, snake.color);
         //loop
         for (let i = 1; i < snake.body.length; i++) {
