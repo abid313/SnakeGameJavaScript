@@ -195,14 +195,8 @@ function EatSelf(snake){
     let isEatSelf = false;
     
     for(var i = 0; i < snake.length; i++){
-        //console.log(i);
         for(var o = 0; o < snake.length; o++){
             for(var p = 1; p < snake[o].body.length; p++){
-                // console.log(snake[i].head.x);
-                // console.log(snake[o].body[p].x);
-
-                // console.log(snake[i].head.y);
-                // console.log(snake[o].body[p].y);
                 if (snake[i].head.x == snake[o].body[p].x && snake[i].head.y == snake[o].body[p].y) {
                     isEatSelf = true;
                 }
@@ -215,12 +209,7 @@ function EatSelf(snake){
     } else if(lifes[0].lifes <= 0){
         alert("Game over");
 		window.location.reload();
-        // ctx.fillText('Game over', 10, lifesCanvas.scrollHeight / 2);
     }
-    // else if (lifes[0].lifes == 0 && EatSelf(snake, initHeadAndBody)) {
-    //     clearInterval(MOVE_INTERVAL);
-    // }
-    // snake.unshift(initHeadAndBody);
     return isEatSelf;
 }
 
