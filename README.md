@@ -1,9 +1,12 @@
 # se-be1-kelompok5
 
+link:
+https://rg-km.github.io/se-be1-kelompok5//snake-game/index.html
+
 Anggota:
 - Rachmat Agung Ananda      (BE2279833)
-- Muhammad Abid Fajar       (BE2219863)
 - Syaddad Auliarahman       (BE2170681)
 - Rahma Khairun'nisa Nailah (BE2064986)
+- Muhammad Abid Fajar       (BE2219863)
 
-![image](https://user-images.githubusercontent.com/69112136/158063708-39800ac9-f4ce-4486-8eb5-82f573d6c73e.png)
+![image](https://user-images.githubusercontent.com/69112136/158063830-0991ee93-36d4-4827-955e-126e412d5775.png)
