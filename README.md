@@ -6,4 +6,4 @@ Anggota:
 - Syaddad Auliarahman       (BE2170681)
 - Rahma Khairun'nisa Nailah (BE2064986)
 
-![image](https://user-images.githubusercontent.com/69112136/158063708-39800ac9-f4ce-4486-8eb5-82f573d6c73e.png)
+![image](https://user-images.githubusercontent.com/69112136/158063830-0991ee93-36d4-4827-955e-126e412d5775.png)
