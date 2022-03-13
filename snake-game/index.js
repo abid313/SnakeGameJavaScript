@@ -86,9 +86,9 @@ function drawScore(snake) {
     let scoreCtx = scoreCanvas.getContext("2d");
 
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    scoreCtx.font = "30px Arial";
+    scoreCtx.font = "20px Arial";
     scoreCtx.fillStyle = "black"
-    scoreCtx.fillText(prop.score, 10, scoreCanvas.scrollHeight / 2);
+    scoreCtx.fillText("Score: "+prop.score, 10, scoreCanvas.scrollHeight / 2);
 }
 
 function drawkeceptan(snake) {
@@ -97,9 +97,9 @@ function drawkeceptan(snake) {
     let keceptanCtx = kecepetanCanvas.getContext("2d");
 
     keceptanCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    keceptanCtx.font = "30px Arial";
+    keceptanCtx.font = "20px Arial";
     keceptanCtx.fillStyle = "black"
-    keceptanCtx.fillText(MOVE_INTERVAL + "ms", 10, kecepetanCanvas.scrollHeight / 2);
+    keceptanCtx.fillText(MOVE_INTERVAL + " .ms", 10, kecepetanCanvas.scrollHeight / 2);
 }
 
 function drawExtraLife(ctx) {
