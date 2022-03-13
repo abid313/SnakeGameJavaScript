@@ -234,7 +234,7 @@ function move(snake) {
             move(snake);
         }, MOVE_INTERVAL);
     }else{
-        move(snake);
+        initGame();
     }
 }
 
@@ -243,16 +243,33 @@ function moveBody(snake) {
     snake.body.pop();
 }
 
+function turn(snake, direction) {
+    const oppositeDirections = {
+        [DIRECTION.LEFT]: DIRECTION.RIGHT,
+        [DIRECTION.RIGHT]: DIRECTION.LEFT,
+        [DIRECTION.DOWN]: DIRECTION.UP,
+        [DIRECTION.UP]: DIRECTION.DOWN,
+    }
+
+    if (direction !== oppositeDirections[snake.direction]) {
+        snake.direction = direction;
+    }
+}
+
 document.addEventListener("keydown", function (event) {
     if (event.key === "ArrowLeft") {
-        snake.direction = DIRECTION.LEFT;
+        turn(snake, DIRECTION.LEFT)
     } else if (event.key === "ArrowRight") {
-        snake.direction = DIRECTION.RIGHT;
+        turn(snake, DIRECTION.RIGHT)
     } else if (event.key === "ArrowUp") {
-        snake.direction = DIRECTION.UP;
+        turn(snake, DIRECTION.UP)
     } else if (event.key === "ArrowDown") {
-        snake.direction = DIRECTION.DOWN;
+        turn(snake, DIRECTION.DOWN)
     }
 })
+
+function initGame() {
+    move(snake);
+}
 
 move(snake);
