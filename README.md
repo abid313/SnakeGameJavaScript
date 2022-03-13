@@ -1,5 +1,8 @@
 # se-be1-kelompok5
 
+link:
+https://rg-km.github.io/se-be1-kelompok5//snake-game/index.html
+
 Anggota:
 - Rachmat Agung Ananda      (BE2279833)
 - Syaddad Auliarahman       (BE2170681)
