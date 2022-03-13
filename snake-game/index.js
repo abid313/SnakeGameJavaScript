@@ -78,6 +78,19 @@ function drawBody(ctx, x, y) {
     ctx.drawImage(snakeBody,  x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
 }
 
+function drawlevel() {
+    let scoreCanvas;
+    if (snake.color == snake.color) {
+        scoreCanvas = document.getElementById("levelberapa");
+    }
+    let scoreCtx = scoreCanvas.getContext("2d");
+
+    scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    scoreCtx.font = "20px Arial";
+    scoreCtx.fillStyle = "black"
+    scoreCtx.fillText("Snake Game - Level: "+prop.level, 10, scoreCanvas.scrollHeight / 2);
+}
+
 function drawScore(snake) {
     let scoreCanvas;
     if (snake.color == snake.color) {
@@ -88,10 +101,10 @@ function drawScore(snake) {
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     scoreCtx.font = "20px Arial";
     scoreCtx.fillStyle = "black"
-    scoreCtx.fillText("Score: "+prop.score, 10, scoreCanvas.scrollHeight / 2);
+    scoreCtx.fillText("Score: \n" +prop.score, 10, scoreCanvas.scrollHeight / 2);
 }
 
-function drawkeceptan(snake) {
+function drawkeceptan() {
     let kecepetanCanvas;
     kecepetanCanvas = document.getElementById("score2Board");
     let keceptanCtx = kecepetanCanvas.getContext("2d");
@@ -99,7 +112,7 @@ function drawkeceptan(snake) {
     keceptanCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     keceptanCtx.font = "20px Arial";
     keceptanCtx.fillStyle = "black"
-    keceptanCtx.fillText(MOVE_INTERVAL + " .ms", 10, kecepetanCanvas.scrollHeight / 2);
+    keceptanCtx.fillText("Speed: "+MOVE_INTERVAL + " .ms", 10, kecepetanCanvas.scrollHeight / 2);
 }
 
 function drawExtraLife(ctx) {
@@ -223,6 +236,7 @@ function draw() {
                     drawLine(ctx, walls[i].x1, walls[i].y1, walls[i].x2, walls[i].y2);
                 }
         }
+        drawlevel(snake);
         drawkeceptan(snake);
         drawScore(snake);
     }, REDRAW_INTERVAL);
