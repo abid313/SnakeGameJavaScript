@@ -214,6 +214,7 @@ function eat(snake, apple1, apple2, lifes) {
         snake.score++;
         //this
         snake.body.push({x: snake.head.x, y: snake.head.y});
+        drawLevel(snake.score);
     }
     for (let i = 0; i < lifes.length; i++) {
         let life = lifes[i];
