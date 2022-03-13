@@ -111,50 +111,50 @@ function draw() {
         //wall
         if(snake.score >= 5 && snake.score < 10){
 			ctx.beginPath();
-			ctx.moveTo(50, 150);
-			ctx.lineTo(350, 150);
+			ctx.moveTo(60, 150);
+			ctx.lineTo(340, 150);
 			ctx.lineWidth = 20;
 			ctx.stroke();
 		} else if(snake.score >= 10 && snake.score < 15){
 			ctx.beginPath();
-			ctx.moveTo(50, 150);
-			ctx.lineTo(350, 150);
+			ctx.moveTo(60, 150);
+			ctx.lineTo(340, 150);
 			ctx.lineWidth = 20;
 			ctx.stroke();
 			
 			ctx.beginPath();
-			ctx.moveTo(50, 250);
-			ctx.lineTo(350, 250);
+			ctx.moveTo(60, 250);
+			ctx.lineTo(340, 250);
 			ctx.lineWidth = 20;
 			ctx.stroke();
 		} else if(snake.score >= 15 && snake.score < 20){
 			ctx.beginPath();
-			ctx.moveTo(50, 150);
-			ctx.lineTo(350, 150);
+			ctx.moveTo(60, 150);
+			ctx.lineTo(340, 150);
 			ctx.lineWidth = 20;
 			ctx.stroke();
 			
 			ctx.beginPath();
-			ctx.moveTo(50, 250);
-			ctx.lineTo(350, 250);
+			ctx.moveTo(60, 250);
+			ctx.lineTo(340, 250);
 			ctx.lineWidth = 20;
 			ctx.stroke();
 			
 			ctx.beginPath();
-			ctx.moveTo(50, 350);
-			ctx.lineTo(350, 350);
+			ctx.moveTo(60, 350);
+			ctx.lineTo(340, 350);
 			ctx.lineWidth = 20;
 			ctx.stroke();
 		} else if(snake.score >= 20){
 			ctx.beginPath();
-			ctx.moveTo(100, 50);
-			ctx.lineTo(100, 350);
+			ctx.moveTo(110, 60);
+			ctx.lineTo(110, 340);
 			ctx.lineWidth = 20;
 			ctx.stroke();
 
 			ctx.beginPath();
-			ctx.moveTo(300, 50);
-			ctx.lineTo(300, 350);
+			ctx.moveTo(290, 60);
+			ctx.lineTo(290, 340);
 			ctx.lineWidth = 20;
 			ctx.stroke();
 		}
