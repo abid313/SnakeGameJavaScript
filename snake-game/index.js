@@ -312,9 +312,10 @@ function selfCollision(snakes){
         snake = initSnake("purple");
         prop.life--;
         if (prop.life == 0) {
-            var audio = new Audio('assets/game-over.mp3');
-            alert("Game Over");
+            var audio = new Audio('assets/game-over.wav');
             audio.play();
+            alert("Game Over");
+            
             snake = initSnake();
             prop = initProperty();
             MOVE_INTERVAL = 120;
