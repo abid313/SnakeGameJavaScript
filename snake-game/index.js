@@ -212,8 +212,9 @@ function EatSelf(snake){
     if(isEatSelf == true){
         lifes[0].lifes -= 1;
         return isEatSelf = false;
-    } else if(lifes[0].lifes == 0){
+    } else if(lifes[0].lifes <= 0){
         alert("Game over");
+		window.location.reload();
         // ctx.fillText('Game over', 10, lifesCanvas.scrollHeight / 2);
     }
     // else if (lifes[0].lifes == 0 && EatSelf(snake, initHeadAndBody)) {
